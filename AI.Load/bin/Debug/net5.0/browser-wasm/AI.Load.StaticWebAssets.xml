@@ -1,0 +1,4 @@
+﻿<StaticWebAssets Version="1.0">
+  <ContentRoot BasePath="/" Path="C:\Users\shive\Desktop\Test\AI_Load\AI.Load\bin\Debug\net5.0\browser-wasm\wwwroot\" />
+  <ContentRoot BasePath="/" Path="C:\Users\shive\Desktop\Test\AI_Load\AI.Load\obj\Debug\net5.0\browser-wasm\scopedcss\" />
+</StaticWebAssets>

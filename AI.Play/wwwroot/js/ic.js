@@ -3,6 +3,7 @@
 function CreateFeatureExtractor(Dotnet)
 {
     featureExtractor = ml5.featureExtractor('MobileNet', ModelLoaded.bind(Dotnet));
+    featureExtractor = featureExtractor.classification();
 }
 
 function ModelLoaded() {
@@ -10,7 +11,7 @@ function ModelLoaded() {
 }
 function AddImage(imageElementRef, label) {
     console.log(imageElementRef);
-    featureExtractor.addImage(imageElementRef , label);
+    featureExtractor.addImage(imageElementRef, label);
 }
 
 function Train(Dotnet,report) {

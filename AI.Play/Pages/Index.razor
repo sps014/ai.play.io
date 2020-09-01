@@ -1,1 +1,44 @@
 ﻿@page "/"
+@inject IJSRuntime Runtime
+
+<br/>
+<p>Model Loaded : @IsModelLoaded </p>
+<button class="btn btn-primary" @onclick="OnLoad">Load</button>
+<button class="btn btn-success" @onclick="()=>{Train();}">Train</button>
+<br/>
+<img src="https://www.nearbyme2.com/wp-content/uploads/2019/09/dogs-for-sale-768x432.jpg" @ref="img"/>
+@code
+{
+    bool IsModelLoaded = false;
+    ElementReference img;
+    DotNetObjectReference<Index> reference;
+    protected override  void OnInitialized(){
+        reference = DotNetObjectReference.Create(this);
+    }
+    async void OnLoad()
+    {
+        await Runtime.InvokeVoidAsync("CreateFeatureExtractor",reference);
+    }
+    async void AddImage(ElementReference image,string label)
+    {
+        await Runtime.InvokeVoidAsync("AddImage",image,label);
+    }
+    async void Train(bool report=true)
+    {
+        await Runtime.InvokeVoidAsync("Train",reference,report);
+    }
+
+    [JSInvokable("ICModelLoad")]
+    public void ModelLoaded()
+    {
+        IsModelLoaded = true;
+        StateHasChanged();
+        for(int i=0;i<20;i++)
+            AddImage(img,"dog");
+    }
+    [JSInvokable("ICTrain")]
+    public void OnTrain(double loss)
+    {
+        Console.WriteLine(loss);
+    }
+}

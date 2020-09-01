@@ -12,4 +12,8 @@
     <PackageReference Include="System.Net.Http.Json" Version="5.0.0-preview.8.20407.11" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\css\" />
+  </ItemGroup>
+
 </Project>

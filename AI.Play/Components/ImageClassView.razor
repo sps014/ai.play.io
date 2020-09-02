@@ -7,9 +7,19 @@
       <ul class="list-group">
           @foreach (var Class in Classes)
           {
+            if(string.IsNullOrEmpty(Class.ClassName))
+              Class.ClassName="Class" + ClassNameCount++;
+
               <ClassModifyView ClassContainer="Class" />
-              <li class="list-group-item" @onwaiting="StateHasChanged"
-                  data-toggle="modal" data-target="#exampleModal_@Class.ClassName">@Class.ClassName</li>
+              <li class="list-group-item" style="height: 40px;">
+                  <div>
+                    <p @onwaiting="StateHasChanged"
+                      data-toggle="modal" data-target="#exampleModal_@Class.ClassName">
+                      @Class.ClassName</p>
+                    <i class="fas fa-trash" @onclick="()=>{DeleteClass(Class);}" 
+                      style="position:absolute;top:10px;right: 10px;"></i>
+                  </div>
+              </li>
           }
       </ul>
     <center style="margin-top:20px;">
@@ -37,6 +47,11 @@
       void AddNewClass()
       {
           Classes.Add(new ImageClassContainer() { ClassName = "Class" + ClassNameCount++ });
+          StateHasChanged();
+      }
+      void DeleteClass(ImageClassContainer container)
+      {
+          Classes.Remove(container);
           StateHasChanged();
       }
 }

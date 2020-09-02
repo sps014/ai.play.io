@@ -13,11 +13,16 @@
               <ClassModifyView ClassContainer="Class" />
               <li class="list-group-item" style="height: 40px;">
                   <div>
-                    <p @onwaiting="StateHasChanged"
+                    <p  @onwaiting="StateHasChanged"
                       data-toggle="modal" data-target="#exampleModal_@Class.ClassName">
-                      @Class.ClassName</p>
+                      @Class.ClassName
+                    </p>
+                    <i class="fas fa-images  red-text pr-3"
+                    @onwaiting="StateHasChanged"
+                      data-toggle="modal" data-target="#exampleModal_@Class.ClassName"
+                    style="position:absolute;top:10px;right: 30px;"></i>
                     <i class="fas fa-trash" @onclick="()=>{DeleteClass(Class);}" 
-                      style="position:absolute;top:10px;right: 10px;"></i>
+                      style="position:absolute;top:10px;right: 15px;"></i>
                   </div>
               </li>
           }
@@ -31,7 +36,12 @@
 
   </div>
   <div class="card-footer text-muted">
-    Need atleast 2 classes to categorize
+    @if(Classes.Count<2)
+    {
+      <div class="alert alert-danger" role="alert">
+        Need atleast 2 classes to categorize
+      </div>
+    }
   </div>
 </div>
 </div>

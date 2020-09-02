@@ -1,12 +1,27 @@
 ﻿@page "/"
 @inject IJSRuntime Runtime
 
-<br/>
+<ImageClass></ImageClass>
+<ImageClass Y="400"></ImageClass>
+
+
+@* <br/>
 <p>Model Loaded : @IsModelLoaded </p>
 <button class="btn btn-primary" @onclick="OnLoad">Load</button>
 <button class="btn btn-success" @onclick="()=>{Train();}">Train</button>
 <br/>
-<img src="/dogs.jpg" @ref="img"/>
+<div class="card" style="width: 18rem;">
+  <div class="card-body">
+    <h5 class="card-title">Special title treatment</h5>
+    <p class="card-text">
+      With supporting text below as a natural lead-in to additional content.
+    </p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>
+<img src="/dogs.jpg" @ref="img"/> *@
+
+
 @code
 {
     bool IsModelLoaded = false;
@@ -42,3 +57,9 @@
         Console.WriteLine(loss);
     }
 }
+<style>
+    body
+    {
+        background:#E8EAED;
+    }
+</style>

@@ -3,12 +3,13 @@
   <div class="card-header">
     <h5>Image Dataset</h5>
   </div>
-  <div class="card-body">
+  <div class="card-body" @onmouseover="StateHasChanged">
       <ul class="list-group">
           @foreach (var Class in Classes)
           {
               <ClassModifyView ClassContainer="Class" />
-              <li class="list-group-item" @onclick="()=> { Console.WriteLine(Class); }" data-toggle="modal" data-target="#exampleModal_@Class.ClassName">@Class.ClassName</li>
+              <li class="list-group-item" @onwaiting="StateHasChanged"
+                  data-toggle="modal" data-target="#exampleModal_@Class.ClassName">@Class.ClassName</li>
           }
       </ul>
     <center style="margin-top:20px;">

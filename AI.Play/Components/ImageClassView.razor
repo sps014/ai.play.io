@@ -4,14 +4,15 @@
     <h5>Image Dataset</h5>
   </div>
   <div class="card-body">
-    <ul class="list-group">
-      @foreach (var Class in Classes)
-      {
-          <li class="list-group-item" @onclick="()=> { Console.WriteLine(Class); }">@Class.ClassName</li>
-      }
-    </ul>
+      <ul class="list-group">
+          @foreach (var Class in Classes)
+          {
+              <ClassModifyView ClassContainer="Class" />
+              <li class="list-group-item" @onclick="()=> { Console.WriteLine(Class); }" data-toggle="modal" data-target="#exampleModal_@Class.ClassName">@Class.ClassName</li>
+          }
+      </ul>
     <center style="margin-top:20px;">
-          <a href="#" class="btn btn-primary">Add New Class</a>
+          <a href="#" class="btn btn-primary"  data-toggle="modal" data-target="#exampleModal">Add New Class</a>
 
 
     </center>
@@ -26,7 +27,7 @@
 @code 
 {
     [Parameter]
-    public List<ImageClassContainer> Classes { get; set; } = new List<ImageClassContainer>() {
+    public static List<ImageClassContainer> Classes { get; set; } = new List<ImageClassContainer>() {
         new ImageClassContainer(){ ClassName="Cats"},
         new ImageClassContainer(){ClassName="Dogs"}
     };

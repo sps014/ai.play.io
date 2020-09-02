@@ -5,11 +5,10 @@
   </div>
   <div class="card-body">
     <ul class="list-group">
-      <li class="list-group-item">Cras justo odio</li>
-      <li class="list-group-item">Dapibus ac facilisis in</li>
-      <li class="list-group-item">Morbi leo risus</li>
-      <li class="list-group-item">Porta ac consectetur ac</li>
-      <li class="list-group-item">Vestibulum at eros</li>
+      @foreach (var Class in Classes)
+      {
+          <li class="list-group-item" @onclick="()=> { Console.WriteLine(Class); }">@Class.ClassName</li>
+      }
     </ul>
     <center style="margin-top:20px;">
           <a href="#" class="btn btn-primary">Add New Class</a>
@@ -26,7 +25,10 @@
 
 @code 
 {
-  [Parameter]
-      public int Y { get; set; } = 100;
+    [Parameter]
+    public List<ImageClassContainer> Classes { get; set; } = new List<ImageClassContainer>() {
+        new ImageClassContainer(){ ClassName="Cats"},
+        new ImageClassContainer(){ClassName="Dogs"}
+    };
 }
 

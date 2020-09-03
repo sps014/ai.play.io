@@ -13,9 +13,50 @@
                 </button>
             </div>
             <div class="modal-body">
-                <div class="form-outline">
-                    <input type="text" id="typeText" class="form-control active" @bind-value="ClassContainer.ClassName"/>
-                    <label class="form-label" for="typeText">Image Label</label>
+                <div class="card text-center">
+                    <div class="card-body">
+                        <div class="form-outline">
+                            <input type="text" id="typeText"
+                                   class="form-control active" @bind-value="ClassContainer.ClassName" />
+                            <label class="form-label" for="typeText">Edit Image Label</label>
+                        </div>
+                        <br />
+                        <div class="btn-group" role="group" aria-label="Basic example">
+                            <button type="button" class="btn btn-primary">Add Local</button>
+                            <button type="button" class="btn btn-primary">Google Drive</button>
+                            <button type="button" class="btn btn-primary">One Drive</button>
+                        </div>
+                    </div>
+
+
+                    <!--here is lighbox-->
+                    <div class="lightbox" data-zoom-level="0.25">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <img src="https://mdbootstrap.com/img/Photos/Thumbnails/Slides/1.jpg"
+                                     data-img="https://mdbootstrap.com/img/Photos/Slides/1.jpg"
+                                     alt="Lightbox image 1"
+                                     class="w-100" />
+                            </div>
+                            <div class="col-lg-4">
+                                <img src="https://mdbootstrap.com/img/Photos/Thumbnails/Slides/2.jpg"
+                                     data-img="https://mdbootstrap.com/img/Photos/Slides/2.jpg"
+                                     alt="Lightbox image 2"
+                                     class="w-100" />
+                            </div>
+                            <div class="col-lg-4">
+                                <img src="https://mdbootstrap.com/img/Photos/Thumbnails/Slides/3.jpg"
+                                     data-img="https://mdbootstrap.com/img/Photos/Slides/3.jpg"
+                                     alt="Lightbox image 3"
+                                     class="w-100" />
+                            </div>
+                        </div>
+                    </div>
+                    <!--Cool drop-->
+
+
+
+
                 </div>
             </div>
             <div class="modal-footer">

@@ -48,11 +48,13 @@
 
 @code 
 {
-  [Parameter]
-      public static List<ImageClassContainer> Classes { get; set; } = new List<ImageClassContainer>() {
-  new ImageClassContainer(){ ClassName="Cats"},
-  new ImageClassContainer(){ClassName="Dogs"}
-  };
+
+      [Parameter]
+      public static List<ImageClassContainer> Classes { get; set; } = new List<ImageClassContainer>() 
+      {
+            new ImageClassContainer(){ ClassName="Cats"},
+            new ImageClassContainer(){ClassName="Dogs"}
+      };
       static int ClassNameCount = 0;
       void AddNewClass()
       {

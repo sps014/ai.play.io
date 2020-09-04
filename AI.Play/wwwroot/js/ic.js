@@ -17,7 +17,6 @@ function AddImage(imageElementRef, label) {
 function Train(Dotnet,report) {
     featureExtractor.train((lossValue) =>
     {
-        console.log(lossValue + "  ->>js");
         if (report)
             Dotnet.invokeMethodAsync("ICTrain", lossValue);
     });

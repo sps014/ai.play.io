@@ -1,16 +1,15 @@
 ﻿@page "/ic/c/{Index}"
-
 <br/>
 
 <div class="card" style="width:96%;margin-left: 2%;margin-right: 2%;">
   <div class="card-body">
     <h5 class="card-title">Data Warehouse</h5>
+      <br/>
     <!--h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6-->
-    <p @ref="textNameRef" contenteditable="true" onkeypress="((e) => { if (e.keyCode == 13) e.preventDefault(); })(event)"
-    style="min-width: 50px; width: fit-content;margin-left:30px;outline-color:dodgerblue;">
-    Hello
-    </p>
-    <i style="position: relative;top:-45px" @onclick="() => textNameRef.FocusAsync()" class="fas fa-edit"></i>
+      <p class="margin-left:60px;">Class Name : </p>
+    <input class="form-control" type="text" @bind-value="Class.ClassName"
+           style="min-width: 100px;position:relative;margin-left:100px;margin-top:-50px;max-width:200px;outline-color:dodgerblue;"/>
+      <br />
     <div class="btn-group shadow-0" role="group" aria-label="Basic example">
         <button type="button" class="btn btn-outline-secondary" data-color="dark">
         Left
@@ -29,15 +28,17 @@
 
 @code
 {
-    ElementReference textNameRef;
     [Parameter]
     public string Index { get; set; }
     int i => int.Parse(Index);
     ImageClassContainer Class => ImageClassView.Classes[i];
+    ElementReference textRef;
 
-    void BlockEnter(KeyboardEventArgs e)
+    protected override void OnInitialized()
     {
+        base.OnInitialized();
     }
+
 }
 
 <style>

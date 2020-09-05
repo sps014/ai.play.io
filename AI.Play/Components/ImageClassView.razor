@@ -3,8 +3,9 @@
   <div class="card-header">
     <h5>Image Dataset</h5>
   </div>
-  <div class="card-body" @onmouseover="StateHasChanged">
+  <div class="card-body">  
       <ul class="list-group">
+       
           @foreach (var (i,Class) in Classes.Select((value,index)=>(index,value)))
           {
               int ind = i;
@@ -23,13 +24,10 @@
               </li>
           }
       </ul>
-    <center style="margin-top:20px;">
+         <center style="margin-top:20px;">
           <a href="#" class="btn btn-primary"
           @onclick="AddNewClass">Add New Class</a>
-
-
-    </center>
-
+        </center>
   </div>
   <div class="card-footer text-muted">
     @if(Classes.Count<2)
@@ -45,12 +43,12 @@
 @code 
 {
 
-      [Parameter]
-      public static List<ImageClassContainer> Classes { get; set; } = new List<ImageClassContainer>() 
-      {
-            new ImageClassContainer(){ ClassName="Cats"},
-            new ImageClassContainer(){ClassName="Dogs"}
-      };
+  [Parameter]
+      public static List<ImageClassContainer> Classes { get; set; } = new List<ImageClassContainer>()
+  {
+      new ImageClassContainer(){ ClassName="Cats"},
+      new ImageClassContainer(){ClassName="Dogs"}
+  };
       static int ClassNameCount = 0;
       void AddNewClass()
       {
@@ -62,5 +60,6 @@
           Classes.RemoveAt(i);
           StateHasChanged();
       }
+
 }
 

@@ -6,11 +6,11 @@
   <div class="card-body">
     <h5 class="card-title">Data Warehouse</h5>
     <!--h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6-->
-    <p contenteditable="true" onkeypress="((e) => { console.log(e); if (e.keyCode == 13) e.preventDefault(); })(event)"
-    style="min-width: 50px; width: fit-content;margin-left:30px;outline-color:deeppink;">
+    <p @ref="textNameRef" contenteditable="true" onkeypress="((e) => { if (e.keyCode == 13) e.preventDefault(); })(event)"
+    style="min-width: 50px; width: fit-content;margin-left:30px;outline-color:dodgerblue;">
     Hello
     </p>
-    <i style="position: relative;top:-45px" class="fas fa-edit"></i>
+    <i style="position: relative;top:-45px" @onclick="() => textNameRef.FocusAsync()" class="fas fa-edit"></i>
     <div class="btn-group shadow-0" role="group" aria-label="Basic example">
         <button type="button" class="btn btn-outline-secondary" data-color="dark">
         Left
@@ -29,6 +29,7 @@
 
 @code
 {
+    ElementReference textNameRef;
     [Parameter]
     public string Index { get; set; }
     int i => int.Parse(Index);

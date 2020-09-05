@@ -6,7 +6,7 @@
   <div class="card-body">
     <h5 class="card-title">Data Warehouse</h5>
     <!--h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6-->
-    <p contenteditable="true" @onkeydown="BlockEnter" onkeypress="function(e){return e.which!=13;}"
+    <p contenteditable="true" onkeypress="((e) => { console.log(e); if (e.keyCode == 13) e.preventDefault(); })(event)"
     style="min-width: 50px; width: fit-content;margin-left:30px;outline-color:deeppink;">
     Hello
     </p>
@@ -36,7 +36,6 @@
 
     void BlockEnter(KeyboardEventArgs e)
     {
-        if (e.Code == 13)
     }
 }
 

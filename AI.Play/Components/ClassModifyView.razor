@@ -1,4 +1,5 @@
-﻿<!-- Modal -->
+﻿@page "/ic/c/{Index}"
+<!-- Modal -->
 <div class="modal fade"
      id="exampleModal_@ClassContainer.ClassName"
      tabindex="-1"
@@ -72,6 +73,8 @@
 </div>
 @code
 {
+    [Parameter]
+    public int Index { get; set; }
     [Parameter]
     public ImageClassContainer ClassContainer { get; set; }
 }

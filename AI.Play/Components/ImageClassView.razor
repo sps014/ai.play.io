@@ -13,13 +13,10 @@
               <ClassModifyView ClassContainer="Class" />
               <li class="list-group-item" style="height: 40px;">
                   <div>
-                    <p @onwaiting="StateHasChanged"
-                      data-toggle="modal" data-target="#exampleModal_@Class.ClassName">
+                    <p>
                       @Class.ClassName
                     </p>
                     <i class="fas fa-images  red-text pr-3"
-                      @onwaiting="StateHasChanged"
-                      data-toggle="modal" data-target="#exampleModal_@Class.ClassName"
                       style="position:absolute;top:10px;right: 30px;"></i>
                     <i class="fas fa-trash" @onclick="()=>{DeleteClass(Class);}" 
                       style="position:absolute;top:10px;right: 15px;"></i>

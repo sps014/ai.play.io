@@ -5,20 +5,19 @@
   </div>
   <div class="card-body" @onmouseover="StateHasChanged">
       <ul class="list-group">
-          @foreach (var Class in Classes)
+          @foreach (var (i,Class) in Classes.Select((value,index)=>(index,value)))
           {
-            if(string.IsNullOrEmpty(Class.ClassName))
-              Class.ClassName="Class" + ClassNameCount++;
+              int ind = i;
+              if(string.IsNullOrEmpty(Class.ClassName))
+                  Class.ClassName="Class" + ClassNameCount++;
 
               <ClassModifyView ClassContainer="Class" />
               <li class="list-group-item" style="height: 40px;">
                   <div>
                     <p>
-                      @Class.ClassName
+                        <a href="/ic/c/@ind">@Class.ClassName</a>
                     </p>
-                    <i class="fas fa-images  red-text pr-3"
-                      style="position:absolute;top:10px;right: 30px;"></i>
-                    <i class="fas fa-trash" @onclick="()=>{DeleteClass(Class);}" 
+                    <i class="fas fa-trash" @onclick="()=>{DeleteClass(i);}" 
                       style="position:absolute;top:10px;right: 15px;"></i>
                   </div>
               </li>
@@ -58,9 +57,9 @@
           Classes.Add(new ImageClassContainer() { ClassName = "Class" + ClassNameCount++ });
           StateHasChanged();
       }
-      void DeleteClass(ImageClassContainer container)
+      void DeleteClass(int i)
       {
-          Classes.Remove(container);
+          Classes.RemoveAt(i);
           StateHasChanged();
       }
 }

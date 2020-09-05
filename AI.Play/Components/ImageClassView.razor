@@ -12,7 +12,6 @@
               if(string.IsNullOrEmpty(Class.ClassName))
                   Class.ClassName="Class" + ClassNameCount++;
 
-              <ClassModifyView ClassContainer="Class" />
               <li class="list-group-item" style="height: 40px;">
                   <div>
                     <p>
@@ -46,8 +45,8 @@
   [Parameter]
       public static List<ImageClassContainer> Classes { get; set; } = new List<ImageClassContainer>()
   {
-      new ImageClassContainer(){ ClassName="Cats"},
-      new ImageClassContainer(){ClassName="Dogs"}
+    new ImageClassContainer(){ ClassName="Cats"},
+    new ImageClassContainer(){ClassName="Dogs"}
   };
       static int ClassNameCount = 0;
       void AddNewClass()

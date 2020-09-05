@@ -4,12 +4,24 @@
 
 <div class="card" style="width:96%;margin-left: 2%;margin-right: 2%;">
   <div class="card-body">
-    <h5 class="card-title">Card title</h5>
-    <h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6>
-    <p class="card-text">
-      Some quick example text to build on the card title and make up the bulk of the
-      card's content.
+    <h5 class="card-title">Data Warehouse</h5>
+    <!--h6 class="card-subtitle mb-2 text-muted">Card subtitle</h6-->
+    <p contenteditable="true" @onkeydown="BlockEnter" onkeypress="function(e){return e.which!=13;}"
+    style="min-width: 50px; width: fit-content;margin-left:30px;outline-color:deeppink;">
+    Hello
     </p>
+    <i style="position: relative;top:-45px" class="fas fa-edit"></i>
+    <div class="btn-group shadow-0" role="group" aria-label="Basic example">
+        <button type="button" class="btn btn-outline-secondary" data-color="dark">
+        Left
+        </button>
+        <button type="button" class="btn btn-outline-secondary" data-color="dark">
+        Middle
+        </button>
+        <button type="button" class="btn btn-outline-secondary" data-color="dark">
+        Right
+        </button>
+    </div>
     <a href="#" class="card-link">Card link</a>
     <a href="#" class="card-link">Another link</a>
   </div>
@@ -20,6 +32,12 @@
     [Parameter]
     public string Index { get; set; }
     int i => int.Parse(Index);
+    ImageClassContainer Class => ImageClassView.Classes[i];
+
+    void BlockEnter(KeyboardEventArgs e)
+    {
+        if (e.Code == 13)
+    }
 }
 
 <style>

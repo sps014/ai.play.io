@@ -42,23 +42,29 @@
 @code 
 {
 
-  [Parameter]
-      public static List<ImageClassContainer> Classes { get; set; } = new List<ImageClassContainer>()
+    [Parameter]
+    public static List<ImageClassContainer> Classes { get; set; } = new List<ImageClassContainer>()
   {
-    new ImageClassContainer(){ ClassName="Cats"},
+    new ImageClassContainer(){ ClassName="Cats",
+        Images=new string[]{ "https://mdbootstrap.com/img/Photos/Thumbnails/Slides/1.jpg",
+        "https://mdbootstrap.com/img/Photos/Thumbnails/Slides/1.jpg",
+        "https://mdbootstrap.com/img/Photos/Thumbnails/Slides/1.jpg",
+        "https://mdbootstrap.com/img/Photos/Thumbnails/Slides/1.jpg",
+        "https://mdbootstrap.com/img/Photos/Thumbnails/Slides/1.jpg"
+        } },
     new ImageClassContainer(){ClassName="Dogs"}
   };
-      static int ClassNameCount = 0;
-      void AddNewClass()
-      {
-          Classes.Add(new ImageClassContainer() { ClassName = "Class" + ClassNameCount++ });
-          StateHasChanged();
-      }
-      void DeleteClass(int i)
-      {
-          Classes.RemoveAt(i);
-          StateHasChanged();
-      }
+    static int ClassNameCount = 0;
+    void AddNewClass()
+    {
+        Classes.Add(new ImageClassContainer() { ClassName = "Class" + ClassNameCount++ });
+        StateHasChanged();
+    }
+    void DeleteClass(int i)
+    {
+        Classes.RemoveAt(i);
+        StateHasChanged();
+    }
 
 }
 

@@ -20,88 +20,25 @@
                 Right
             </button>
         </div>
+        @for (int i = 0; i <= Class.Images.Length / 3; i++)
+        {
+            <ul class="list-group list-group-horizontal">
 
-        <ul class="list-group list-group-horizontal">
-            <li class="list-group-item">
-                <img src="https://mdbootstrap.com/img/Photos/Thumbnails/Slides/1.jpg"
-                     data-img="https://mdbootstrap.com/img/Photos/Slides/1.jpg"
+            @for (int j = 0; j < 3; j++)
+            {
+                int ind = i * 3 + j;
+                if (ind >= Class.Images.Length)
+                    continue;
+                <li class="list-group-item">
+                <img src="@Class.Images[ind]"
+                     data-img="@Class.Images[ind]"
                      alt="Lightbox image 1"
                      class="w-100" />
-            </li>
-            <li class="list-group-item">
-                <img src="https://mdbootstrap.com/img/Photos/Thumbnails/Slides/1.jpg"
-                     data-img="https://mdbootstrap.com/img/Photos/Slides/1.jpg"
-                     alt="Lightbox image 1"
-                     class="w-100" />
-            </li>
-            <li class="list-group-item">
-                <img src="https://mdbootstrap.com/img/Photos/Thumbnails/Slides/1.jpg"
-                     data-img="https://mdbootstrap.com/img/Photos/Slides/1.jpg"
-                     alt="Lightbox image 1"
-                     class="w-100" />
-            </li>
-        </ul>
-        <ul class="list-group list-group-horizontal">
-            <li class="list-group-item">
-                <img src="https://mdbootstrap.com/img/Photos/Thumbnails/Slides/1.jpg"
-                     data-img="https://mdbootstrap.com/img/Photos/Slides/1.jpg"
-                     alt="Lightbox image 1"
-                     class="w-100" />
-            </li>
-            <li class="list-group-item">
-                <img src="https://mdbootstrap.com/img/Photos/Thumbnails/Slides/1.jpg"
-                     data-img="https://mdbootstrap.com/img/Photos/Slides/1.jpg"
-                     alt="Lightbox image 1"
-                     class="w-100" />
-            </li>
-            <li class="list-group-item">
-                <img src="https://mdbootstrap.com/img/Photos/Thumbnails/Slides/1.jpg"
-                     data-img="https://mdbootstrap.com/img/Photos/Slides/1.jpg"
-                     alt="Lightbox image 1"
-                     class="w-100" />
-            </li>
-        </ul>
-        <ul class="list-group list-group-horizontal">
-            <li class="list-group-item">
-                <img src="https://mdbootstrap.com/img/Photos/Thumbnails/Slides/1.jpg"
-                     data-img="https://mdbootstrap.com/img/Photos/Slides/1.jpg"
-                     alt="Lightbox image 1"
-                     class="w-100" />
-            </li>
-            <li class="list-group-item">
-                <img src="https://mdbootstrap.com/img/Photos/Thumbnails/Slides/1.jpg"
-                     data-img="https://mdbootstrap.com/img/Photos/Slides/1.jpg"
-                     alt="Lightbox image 1"
-                     class="w-100" />
-            </li>
-            <li class="list-group-item">
-                <img src="https://mdbootstrap.com/img/Photos/Thumbnails/Slides/1.jpg"
-                     data-img="https://mdbootstrap.com/img/Photos/Slides/1.jpg"
-                     alt="Lightbox image 1"
-                     class="w-100" />
-            </li>
-        </ul>
-
-        <ul class="list-group list-group-horizontal">
-            <li class="list-group-item">
-                <img src="https://mdbootstrap.com/img/Photos/Thumbnails/Slides/1.jpg"
-                     data-img="https://mdbootstrap.com/img/Photos/Slides/1.jpg"
-                     alt="Lightbox image 1"
-                     class="w-100" />
-            </li>
-            <li class="list-group-item">
-                <img src="https://mdbootstrap.com/img/Photos/Thumbnails/Slides/1.jpg"
-                     data-img="https://mdbootstrap.com/img/Photos/Slides/1.jpg"
-                     alt="Lightbox image 1"
-                     class="w-100" />
-            </li>
-            <li class="list-group-item">
-                <img src="https://mdbootstrap.com/img/Photos/Thumbnails/Slides/1.jpg"
-                     data-img="https://mdbootstrap.com/img/Photos/Slides/1.jpg"
-                     alt="Lightbox image 1"
-                     class="w-100" />
-            </li>
-        </ul>
+                </li>
+            }
+            </ul>
+        }
+           
 
 
         <a href="#" class="card-link">Card link</a>
@@ -117,10 +54,6 @@
     ImageClassContainer Class => ImageClassView.Classes[i];
     ElementReference textRef;
 
-    protected override void OnInitialized()
-    {
-        base.OnInitialized();
-    }
 
 }
 

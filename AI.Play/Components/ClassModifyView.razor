@@ -5,16 +5,13 @@
     <div class="card-body">
         <h5 class="card-title">Data Warehouse</h5>
         <br />
-        <form class="row g-3 needs-validation" novalidate onsubmit="return false">
-            <p class="margin-left:60px;">Class Name : </p>
-            <input class="form-control" type="text" @bind-value="Class.ClassName"
-                   style="min-width: 100px;position:relative;margin-left:105px;margin-top:-50px;max-width:200px;outline-color:dodgerblue;" />
-
-        </form>
+        <p class="margin-left:60px;">Class Name : </p>
+        <input class="form-control" type="text" @bind-value="Class.ClassName"
+               style="min-width: 100px;position:relative;margin-left:105px;margin-top:-50px;max-width:200px;outline-color:dodgerblue;" />
         <br />
         <div class="btn-group shadow-0" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-outline-secondary" data-color="dark">
-                Left
+            <button type="button" class="btn btn-outline-danger" data-color="dark">
+                Add Local
             </button>
             <button type="button" class="btn btn-outline-secondary" data-color="dark">
                 Middle

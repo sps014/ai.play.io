@@ -28,10 +28,10 @@
             {
                 int ind = i * 3 + j;
                 if (ind >= Class.Images.Length)
-                    continue;
+                    break;
                 <li class="list-group-item">
-                <img src="@Class.Images[ind]"
-                     data-img="@Class.Images[ind]"
+                <img src="@Class.Images[ind].Image"
+                     data-img="@Class.Images[ind].Image"
                      alt="Lightbox image 1"
                      class="w-100" />
                 </li>

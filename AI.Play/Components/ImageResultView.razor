@@ -1,3 +1,4 @@
+@inject IJSRuntime Runtime
 <div class="col-md-3" style="padding-top: 20px;">
     <div class="card text-center">
   <div class="card-header">
@@ -18,7 +19,15 @@
 
 @code 
 {
-  [Parameter]
-      public int Y { get; set; } = 100;
+    DotNetObjectReference<ImageResultView> DotNetObject;
+
+    protected override void OnInitialized()
+    {
+        DotNetObject = DotNetObjectReference.Create(this);
+    }
+    async Task Classify(ElementReference image)
+    {
+        await Runtime.InvokeVoidAsync("AddImage", DotNetObject, image);
+    }
 }
 

@@ -9,59 +9,6 @@
 </ImageClassifyGrid>
 
 
-
-@* <br/>
-<p>Model Loaded : @IsModelLoaded </p>
-<button class="btn btn-primary" @onclick="OnLoad">Load</button>
-<button class="btn btn-success" @onclick="()=>{Train();}">Train</button>
-<br/>
-<div class="card" style="width: 18rem;">
-  <div class="card-body">
-    <h5 class="card-title">Special title treatment</h5>
-    <p class="card-text">
-      With supporting text below as a natural lead-in to additional content.
-    </p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
-  </div>
-</div>
-<img src="/dogs.jpg" @ref="img"/> *@
-
-
-@code
-{
-    bool IsModelLoaded = false;
-    ElementReference img;
-    DotNetObjectReference<Index> reference;
-    protected override  void OnInitialized(){
-        reference = DotNetObjectReference.Create(this);
-    }
-    async void OnLoad()
-    {
-        await Runtime.InvokeVoidAsync("CreateFeatureExtractor",reference);
-    }
-    async void AddImage(ElementReference image,string label)
-    {
-        await Runtime.InvokeVoidAsync("AddImage",image,label);
-    }
-    async void Train(bool report=true)
-    {
-        await Runtime.InvokeVoidAsync("Train",reference,report);
-    }
-
-    [JSInvokable("ICModelLoad")]
-    public void ModelLoaded()
-    {
-        IsModelLoaded = true;
-        StateHasChanged();
-        for(int i=0;i<20;i++)
-            AddImage(img,"dog");
-    }
-    [JSInvokable("ICTrain")]
-    public void OnTrain(string loss)
-    {
-        Console.WriteLine(loss);
-    }
-}
 <style>
     body {
         background: #E8EAED;

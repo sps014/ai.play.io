@@ -1,10 +1,11 @@
 using Microsoft.AspNetCore.Components;
 using System;
+using System.Collections.Generic;
 
 public class ImageClassContainer
 {
     public string ClassName { get; set; }
-    public ImageRefs[] Images { get; set; } = Array.Empty<ImageRefs>();
+    public List<ImageRefs> Images { get; set; } = new List<ImageRefs>();
 }
 public class ImageRefs
 {

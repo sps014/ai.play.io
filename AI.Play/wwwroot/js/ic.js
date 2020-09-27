@@ -18,3 +18,10 @@ function Train(Dotnet, report) {
             Dotnet.invokeMethodAsync("ICTrain", lossValue);
     });
 }
+function Classify(Dotnet, input) {
+    featureExtractor.classify(input, OnClassify.bind(Dotnet));
+}
+function OnClassify(err, results) {
+    console.log(results);
+    //Dotnet.invokeMethodAsync("ICClassify", results);
+}

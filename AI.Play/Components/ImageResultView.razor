@@ -5,11 +5,12 @@
     <h5>Preview</h5>
   </div>
   <div class="card-body">
-    <h5 class="card-title">Special title treatment</h5>
-    <p class="card-text">
-      With supporting text below as a natural lead-in to additional content.
-    </p>
-    <a href="#" class="btn btn-primary">Export</a>
+      @if (imageToClassify!=null)
+      {
+          <img src="@imageToClassify" @ref="imageRef" />
+      }
+      <button class="btn btn-primary" @onclick="Classify">Predict</button>
+      <InputFile OnChange="OnInputFileChange" />
   </div>
   <div class="card-footer text-muted">
     2 days ago
@@ -20,14 +21,49 @@
 @code 
 {
     DotNetObjectReference<ImageResultView> DotNetObject;
+    string imageToClassify = null;
+    ElementReference imageRef;
 
     protected override void OnInitialized()
     {
         DotNetObject = DotNetObjectReference.Create(this);
     }
-    async Task Classify(ElementReference image)
+    async Task Classify()
     {
-        await Runtime.InvokeVoidAsync("AddImage", DotNetObject, image);
+        await Runtime.InvokeVoidAsync("Classify", DotNetObject, imageRef);
+    }
+    [JSInvokable("ICClassify")]
+    public void ICClassify(ClassResult[] results)
+    {
+        if (results == null)
+            return;
+
+        foreach (var item in results)
+        {
+            Console.WriteLine(item.label + "   ->   " + item.confidence);
+        }
+    }
+
+    async Task OnInputFileChange(InputFileChangeEventArgs e)
+    {
+        var imageFiles = e.GetMultipleFiles();
+
+        var format = "image/png";
+        foreach (var imageFile in imageFiles)
+        {
+            var resizedImageFile = await imageFile.RequestImageFileAsync(format, 300, 300);
+            var buffer = new byte[resizedImageFile.Size];
+            await resizedImageFile.OpenReadStream().ReadAsync(buffer);
+            imageToClassify = $"data:{format};base64,{Convert.ToBase64String(buffer)}";
+        }
+
+        StateHasChanged();
+    }
+
+    public class ClassResult
+    {
+        public string label { get; set; }
+        public double confidence { get; set; }
     }
 }
 

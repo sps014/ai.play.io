@@ -4,8 +4,12 @@
   <div class="card-header">
     <h5>Preview</h5>
   </div>
+       
   <div class="card-body">
-      @if (imageToClassify!=null)
+      <div class="card-title">
+          @maxLabel
+      </div>
+      @if (imageToClassify != null)
       {
           <img src="@imageToClassify" @ref="imageRef" />
       }
@@ -13,7 +17,7 @@
       <InputFile OnChange="OnInputFileChange" />
   </div>
   <div class="card-footer text-muted">
-    2 days ago
+    @maxLabel
   </div>
 </div>
 </div>
@@ -23,6 +27,7 @@
     DotNetObjectReference<ImageResultView> DotNetObject;
     string imageToClassify = null;
     ElementReference imageRef;
+    string maxLabel = null;
 
     protected override void OnInitialized()
     {
@@ -42,6 +47,11 @@
         {
             Console.WriteLine(item.label + "   ->   " + item.confidence);
         }
+        var res=results.OrderByDescending(x => x.confidence).First();
+        if (res == null)
+            return;
+        maxLabel = res.label;
+        StateHasChanged();
     }
 
     async Task OnInputFileChange(InputFileChangeEventArgs e)

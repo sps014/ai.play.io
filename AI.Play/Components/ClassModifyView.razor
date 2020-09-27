@@ -10,16 +10,11 @@
                style="min-width: 100px;position:relative;margin-left:105px;margin-top:-50px;max-width:200px;outline-color:dodgerblue;" />
         <br />
         <div class="btn-group shadow-0" role="group" aria-label="Basic example">
-            <button type="button" class="btn btn-outline-danger" data-color="dark">
+            <button type="button" class="btn btn-danger" data-color="dark">
             <InputFile OnChange="OnInputFileChange" multiple />
             </button>
-            <button type="button" class="btn btn-outline-secondary" data-color="dark">
-                Middle
-            </button>
-            <button type="button" class="btn btn-outline-secondary" data-color="dark">
-                Right
-            </button>
         </div>
+        <br/>
         @for (int i = 0; i <= Class.Images.Count / 3; i++)
         {
             <ul class="list-group list-group-horizontal">
@@ -33,7 +28,6 @@
                 <img src="@Class.Images[ind].Image"
                      data-img="@Class.Images[ind].Image"
                      alt="Lightbox image 1"
-                     style="width: 33%; height:300px" 
                      class="w-100"/>
                 </li>
             }
@@ -41,9 +35,6 @@
         }
            
 
-
-        <a href="#" class="card-link">Card link</a>
-        <a href="#" class="card-link">Another link</a>
     </div>
 </div>
 

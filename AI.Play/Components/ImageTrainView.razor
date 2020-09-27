@@ -5,9 +5,13 @@
             <h5>Train</h5>
         </div>
         <div class="card-body">
-            <h5 class="card-title">WEBGL TRAIN</h5>
+            <h5 class="card-title">@imagesCount Images</h5>
             <p class="card-text">
-                @if(!IsModelLoaded)
+                <br/>
+                
+                With supporting text below as a natural lead-in to additional content.
+            </p>
+            @if(!IsModelLoaded)
                 {
                 <button class="btn btn-primary" type="button" disabled>
                 <span
@@ -19,11 +23,8 @@
                 }
                 else
                 {
-                    <button class="btn btn-primary" type="button">Train</button>
-                }
-                With supporting text below as a natural lead-in to additional content.
-            </p>
             <a href="#" class="btn btn-primary">Train</a>
+                }
         </div>
         <div class="card-footer text-muted">
             2 days ago
@@ -67,13 +68,12 @@
     {
         IsModelLoaded = true;
         StateHasChanged();
-        for (int i = 0; i < 20; i++)
-            AddImage(img, "dog");
     }
     [JSInvokable("ICTrain")]
     public void OnTrain(string loss)
     {
         Console.WriteLine(loss);
     }
+    int imagesCount => ImageClassView.Classes.Select(x => x.Images.Count).Sum();
 }
 

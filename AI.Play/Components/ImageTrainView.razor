@@ -13,7 +13,7 @@
             </p>
             @if(!IsModelLoaded)
                 {
-                <button class="btn btn-primary" type="button" disabled>
+                <button class="btn btn-danger" type="button" disabled>
                 <span
                     class="spinner-border spinner-border-sm"
                     aria-hidden="true"
@@ -23,7 +23,7 @@
                 }
                 else
                 {
-            <a href="#" class="btn btn-primary">Train</a>
+            <button class="btn btn-primary" @onclick="()=>{Train();}">Train</button>
                 }
         </div>
         <div class="card-footer text-muted">
@@ -54,12 +54,16 @@
     {
         await Runtime.InvokeVoidAsync("CreateFeatureExtractor", reference);
     }
-    async void AddImage(ElementReference image, string label)
+    async Task AddImage(ElementReference image, string label)
     {
         await Runtime.InvokeVoidAsync("AddImage", image, label);
     }
     async void Train(bool report = true)
     {
+        //Add images to NN
+        foreach (var cls in ImageClassView.Classes)
+            foreach (var img in cls.Images)
+                await AddImage(img.Reference, cls.ClassName);
         await Runtime.InvokeVoidAsync("Train", reference, report);
     }
 

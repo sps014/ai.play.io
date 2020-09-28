@@ -7,24 +7,50 @@
         <div class="card-body">
             <h5 class="card-title">@imagesCount Images</h5>
             <p class="card-text">
-                <br/>
-                
-                
+                <br />
+
+
             </p>
-            @if(!IsModelLoaded)
-                {
+            @if (!IsModelLoaded)
+            {
                 <button class="btn btn-danger" type="button" disabled>
-                <span
-                    class="spinner-border spinner-border-sm"
-                    aria-hidden="true"
-                    role="status"></span>
-                  Loading Model...
+                    <span class="spinner-border spinner-border-sm"
+                          aria-hidden="true"
+                          role="status"></span>
+                    Loading Model...
                 </button>
+            }
+            else
+            {
+                var valid = true && ImageClassView.Classes.Count >= 2;
+                ImageClassContainer Class = null;
+                foreach (var item in ImageClassView.Classes)
+                {
+                    if (item.Images.Count <= 1)
+                    {
+                        valid = false;
+                        Class = item;
+                        break;
+                    }
+                }
+                if (valid)
+                {
+                    <button class="btn btn-primary" @onclick="()=>{Train();}">Train</button>
                 }
                 else
                 {
-            <button class="btn btn-primary" @onclick="()=>{Train();}">Train</button>
+                    <div class="alert alert-danger" role="alert">
+                        @if(ImageClassView.Classes.Count<=1)
+                        {
+                            <p>Add Atleast 2 Classes To Train Model</p>
+                        }
+                        else if(Class!=null)
+                        {
+                            <p>Class @Class.ClassName Contains only @Class.Images.Count Images, Atleast 2 Images are required to train</p>
+                        }
+                    </div>
                 }
+            }
         </div>
         <div class="card-footer text-muted">
             2 days ago

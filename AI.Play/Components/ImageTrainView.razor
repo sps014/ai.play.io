@@ -37,6 +37,10 @@
                     {
                         <button class="btn btn-warning">Adding @imageAddedCount Images in Model</button>
                     }
+                    else if (trainingBegin)
+                    {
+                        <button class="btn btn-success">Training ( Loss @loss)</button>
+                    }
                     else
                     {
                         <button class="btn btn-primary" @onclick="async() => { await Train();}">Train</button>
@@ -74,10 +78,13 @@
 @code
 {
     bool IsModelLoaded = false;
+    int imageAddedCount = 0;
     bool IsImageAddedBegin = false;
+    bool trainingBegin = false;
+    double loss = 0;
+
     ElementReference img;
     DotNetObjectReference<ImageTrainView> reference;
-    int imageAddedCount = 0;
 
     protected override void OnInitialized()
     {
@@ -111,7 +118,9 @@
         StateHasChanged();
         await Task.Delay(1);
         await Runtime.InvokeVoidAsync("Train", reference, report);
-
+        trainingBegin = true;
+        StateHasChanged();
+        await Task.Delay(1);
     }
 
     [JSInvokable("ICModelLoad")]
@@ -121,9 +130,19 @@
         StateHasChanged();
     }
     [JSInvokable("ICTrain")]
-    public void OnTrain(string loss)
+    public async void OnTrain(string loss)
     {
+        if(string.IsNullOrWhiteSpace(loss))
+        {
+            trainingBegin = false;
+        }
+        else
+        {
+            this.loss = double.Parse(loss);
+        }
         Console.WriteLine(loss);
+        StateHasChanged();
+        await Task.Delay(1);
     }
     int imagesCount => ImageClassView.Classes.Select(x => x.Images.Count).Sum();
 }

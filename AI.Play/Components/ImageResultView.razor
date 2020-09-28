@@ -6,12 +6,15 @@
   </div>
        
   <div class="card-body">
-      <div class="card-title">
-          @maxLabel
-      </div>
       @if (imageToClassify != null)
       {
           <img src="@imageToClassify" @ref="imageRef" style="width:100%" />
+      }
+      else if (ImageTrainView.OnceTrained)
+      {
+          <div class="alert alert-success">
+              Please click on Predict button to select image and predict image's class.
+          </div>
       }
       <br />
       <br />
@@ -25,14 +28,25 @@
       else
       {
           <div class="alert alert-warning">
-              Please complete Train step before making classification decisions.
+              You must train a model on the left before you can preview it here.
           </div>
       }
 
 
   </div>
   <div class="card-footer text-muted">
-    @maxLabel
+      <ul class="list-group">
+          @if (results != null)
+          {
+              foreach (var item in results)
+              {
+                  <li class="list-group-item">
+                      <p>@item.label</p>
+                      <p>@item.confidence</p>
+                  </li>
+              }
+          }
+      </ul>
   </div>
 </div>
 </div>
@@ -42,7 +56,7 @@
     DotNetObjectReference<ImageResultView> DotNetObject;
     string imageToClassify = null;
     ElementReference imageRef;
-    string maxLabel = null;
+    ClassResult[] results = null;
 
     protected override void OnInitialized()
     {
@@ -62,10 +76,8 @@
         {
             Console.WriteLine(item.label + "   ->   " + item.confidence);
         }
-        var res=results.OrderByDescending(x => x.confidence).First();
-        if (res == null)
-            return;
-        maxLabel = res.label;
+        this.results = results.OrderByDescending(x => x.confidence).ToArray();
+       
         StateHasChanged();
     }
     public void Refresh()

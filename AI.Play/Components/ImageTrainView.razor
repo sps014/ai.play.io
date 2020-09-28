@@ -8,8 +8,6 @@
             <h5 class="card-title">@imagesCount Images</h5>
             <p class="card-text">
                 <br />
-
-
             </p>
             @if (!IsModelLoaded)
             {
@@ -35,18 +33,25 @@
                 }
                 if (valid)
                 {
-                    <button class="btn btn-primary" @onclick="()=>{Train();}">Train</button>
+                    if (IsImageAddedBegin)
+                    {
+                        <button class="btn btn-warning">Adding Images in Model</button>
+                    }
+                    else
+                    {
+                        <button class="btn btn-primary" @onclick="async() => { await Train();}">Train</button>
+                    }
                 }
                 else
                 {
                     <div class="alert alert-danger" role="alert">
-                        @if(ImageClassView.Classes.Count<=1)
+                        @if (ImageClassView.Classes.Count <= 1)
                         {
                             <p>Add Atleast 2 Classes To Train Model</p>
                         }
-                        else if(Class!=null)
+                        else if (Class != null)
                         {
-                            <p>Class @Class.ClassName Contains only @Class.Images.Count Images, Atleast 2 Images are required to train</p>
+                            <p>Class "@Class.ClassName" Contains @Class.Images.Count Images, Atleast 2 Images are required to train</p>
                         }
                     </div>
                 }
@@ -69,6 +74,7 @@
 @code
 {
     bool IsModelLoaded = false;
+    bool IsImageAddedBegin = false;
     ElementReference img;
     DotNetObjectReference<ImageTrainView> reference;
     protected override void OnInitialized()
@@ -84,13 +90,20 @@
     {
         await Runtime.InvokeVoidAsync("AddImage", image, label);
     }
-    async void Train(bool report = true)
+    async Task Train(bool report = true)
     {
-        //Add images to NN
+        //Add images to NN 
+        IsImageAddedBegin = true;
+        StateHasChanged();
+        await Task.Delay(1);
         foreach (var cls in ImageClassView.Classes)
             foreach (var img in cls.Images)
                 await AddImage(img.Reference, cls.ClassName);
+        IsImageAddedBegin = false;
+        StateHasChanged();
+        await Task.Delay(1);
         await Runtime.InvokeVoidAsync("Train", reference, report);
+
     }
 
     [JSInvokable("ICModelLoad")]

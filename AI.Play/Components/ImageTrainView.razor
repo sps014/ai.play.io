@@ -35,16 +35,16 @@
                 {
                     if (IsImageAddedBegin)
                     {
-        <button class="btn btn-warning">
-            @if (imageAddedCount == 0)
-            {
-                <span>Initializing Trainer Engine</span>
-            }
-            else
-            {
-                <span> Processed @imageAddedCount Images</span>
-            }
-        </button>
+                        <button class="btn btn-warning">
+                        @if (imageAddedCount == 0)
+                        {
+                            <span>Initializing Trainer Engine</span>
+                        }
+                        else
+                        {
+                            <span> Processed @imageAddedCount Images</span>
+                        }
+                        </button>
                     }
                     else if (trainingBegin)
                     {

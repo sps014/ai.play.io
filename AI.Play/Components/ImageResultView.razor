@@ -38,12 +38,21 @@
       <ul class="list-group">
           @if (results != null)
           {
-              foreach (var item in results)
+              foreach (var (ind,item) in results.Select((itm, ind) => (ind,itm)))
               {
-                  <li class="list-group-item">
-                      <p>@item.label</p>
-                      <p>@item.confidence</p>
-                  </li>
+          <li class="list-group-item text-left">
+              <p style="position:relative;margin-left:5px">@item.label</p>
+              <div class="progress" style="height: 30px;position: relative;margin-left: 25px;margin-top:-43px">
+                  <div class="progress-bar bg-@GetColor(ind)"
+                       role="progressbar"
+                       style="width: @(item.confidence*100)%;"
+                       aria-valuenow="@(item.confidence*100)%;"
+                       aria-valuemin="0"
+                       aria-valuemax="100">
+                      @((int)(item.confidence*100))%
+                  </div>
+              </div>
+          </li>
               }
           }
       </ul>
@@ -56,6 +65,7 @@
     DotNetObjectReference<ImageResultView> DotNetObject;
     string imageToClassify = null;
     ElementReference imageRef;
+    string[] colors = new string[] { "success","danger","primary","warning","dark" };
     ClassResult[] results = null;
 
     protected override void OnInitialized()
@@ -77,7 +87,7 @@
             Console.WriteLine(item.label + "   ->   " + item.confidence);
         }
         this.results = results.OrderByDescending(x => x.confidence).ToArray();
-       
+
         StateHasChanged();
     }
     public void Refresh()
@@ -85,6 +95,10 @@
         StateHasChanged();
     }
 
+    public string GetColor(int i)
+    {
+        return colors[i % colors.Length];
+    }
     async Task OnInputFileChange(InputFileChangeEventArgs e)
     {
         var imageFiles = e.GetMultipleFiles();

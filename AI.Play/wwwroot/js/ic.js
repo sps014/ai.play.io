@@ -1,6 +1,7 @@
 ﻿let featureExtractor;
 
 function CreateFeatureExtractor(Dotnet) {
+    console.clear();
     featureExtractor = ml5.featureExtractor('MobileNet', ModelLoaded.bind(Dotnet));
     featureExtractor = featureExtractor.classification();
 }

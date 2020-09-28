@@ -8,11 +8,10 @@
         <p class="margin-left:60px;">Class Name : </p>
         <input class="form-control" type="text" @bind-value="Class.ClassName"
                style="min-width: 100px;position:relative;margin-left:105px;margin-top:-50px;max-width:200px;outline-color:dodgerblue;" />
-        <br />
+        <br/>
         <div class="btn-group shadow-0" role="group" aria-label="Basic example">
             <span class="btn btn-primary btn-file">
-                Add Images      <InputFile OnChange="OnInputFileChange" multiple />
-
+                Add Images (@Class.Images.Count)     <InputFile OnChange="OnInputFileChange" multiple />
             </span>
         </div>
         <br />
@@ -28,12 +27,16 @@
                         int ind = i * ColCount + j;
                         if (ind >= Class.Images.Count)
                             break;
-                        <div class="col-lg-3">
-                            <img src="@Class.Images[ind].Image"
-                                 data-img="@Class.Images[ind].Image"
-                                 alt="Lightbox image 1" style="width:100%"
-                                 class="w-100 shadow-1-strong rounded" />
-                        </div>
+                    <div class="col-3">
+                        <img src="@Class.Images[ind].Image"
+                             data-img="@Class.Images[ind].Image"
+                             alt="Lightbox image 1" style="width:100%"
+                             class="w-100 shadow-1-strong rounded" />
+                        <button type="button" class="btn btn-danger btn-floating" style="position:relative;margin-top:-40px"
+                                @onclick="()=> { RemoveImage(Class.Images[ind]); }">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
                     }
                 </div>
                 <br />
@@ -50,6 +53,13 @@
     public string Index { get; set; }
     int i => int.Parse(Index);
     ImageClassContainer Class => ImageClassView.Classes[i];
+
+    void RemoveImage(ImageRefs refs)
+    {
+        if(Class.Images.Contains(refs))
+            Class.Images.Remove(refs);
+        StateHasChanged();
+    }
     async Task OnInputFileChange(InputFileChangeEventArgs e)
     {
         var imageFiles = e.GetMultipleFiles();

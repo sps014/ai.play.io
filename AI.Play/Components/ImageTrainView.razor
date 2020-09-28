@@ -35,7 +35,7 @@
                 {
                     if (IsImageAddedBegin)
                     {
-                        <button class="btn btn-warning">Adding Images in Model</button>
+                        <button class="btn btn-warning">Adding @imageAddedCount Images in Model</button>
                     }
                     else
                     {
@@ -77,6 +77,8 @@
     bool IsImageAddedBegin = false;
     ElementReference img;
     DotNetObjectReference<ImageTrainView> reference;
+    int imageAddedCount = 0;
+
     protected override void OnInitialized()
     {
         reference = DotNetObjectReference.Create(this);
@@ -96,9 +98,15 @@
         IsImageAddedBegin = true;
         StateHasChanged();
         await Task.Delay(1);
+        imageAddedCount = 0;
         foreach (var cls in ImageClassView.Classes)
             foreach (var img in cls.Images)
+            {
+                imageAddedCount++;
                 await AddImage(img.Reference, cls.ClassName);
+                StateHasChanged();
+                await Task.Delay(1);
+            }
         IsImageAddedBegin = false;
         StateHasChanged();
         await Task.Delay(1);

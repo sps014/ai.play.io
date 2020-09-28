@@ -35,7 +35,16 @@
                 {
                     if (IsImageAddedBegin)
                     {
-                        <button class="btn btn-warning">Processed @imageAddedCount Images</button>
+        <button class="btn btn-warning">
+            @if (imageAddedCount == 0)
+            {
+                <span>Initializing Trainer Engine</span>
+            }
+            else
+            {
+                <span> Processed @imageAddedCount Images</span>
+            }
+        </button>
                     }
                     else if (trainingBegin)
                     {
@@ -126,12 +135,10 @@
                 await Task.Delay(1);
             }
         IsImageAddedBegin = false;
-        StateHasChanged();
-        await Task.Delay(1);
-        await Runtime.InvokeVoidAsync("Train", reference, report);
         trainingBegin = true;
         StateHasChanged();
         await Task.Delay(1);
+        await Runtime.InvokeVoidAsync("Train", reference, report);
     }
 
     [JSInvokable("ICModelLoad")]

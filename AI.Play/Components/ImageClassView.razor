@@ -55,12 +55,19 @@
     {
         Classes.Add(new ImageClassContainer() { ClassName = "Class" + ClassNameCount++ });
         StateHasChanged();
+        AddedDeletedCall?.Invoke();
+
+
     }
     void DeleteClass(int i)
     {
         Classes.RemoveAt(i);
         StateHasChanged();
+        AddedDeletedCall?.Invoke();
     }
+
+    public delegate void AddedDeletedCallHandler();
+    public event AddedDeletedCallHandler AddedDeletedCall;
 
 }
 

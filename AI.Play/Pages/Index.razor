@@ -3,7 +3,7 @@
 
 <br/>
 <ImageClassifyGrid>
-    <ImageClassView/>
+    <ImageClassView @ref="classView"/>
     <ImageTrainView @ref="trainView"/>
     <ImageResultView @ref="resultView"/>
 </ImageClassifyGrid>
@@ -11,13 +11,17 @@
 
 @code
 {
-        ImageResultView resultView;
-        ImageTrainView trainView;
-        protected override void OnAfterRender(bool firstRender)
+    ImageResultView resultView;
+    ImageTrainView trainView;
+    ImageClassView classView;
+    protected override void OnAfterRender(bool firstRender)
+    {
+        if (firstRender)
         {
-            if(firstRender)
-                trainView.TrainingDone += () => resultView.Refresh();
+            trainView.TrainingDone += () => resultView.Refresh();
+            classView.AddedDeletedCall += () => trainView.Refresh();
         }
+    }
 
 }
 

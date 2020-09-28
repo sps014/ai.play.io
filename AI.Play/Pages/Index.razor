@@ -4,9 +4,23 @@
 <br/>
 <ImageClassifyGrid>
     <ImageClassView/>
-    <ImageTrainView/>
-    <ImageResultView/>
+    <ImageTrainView @ref="trainView"/>
+    <ImageResultView @ref="resultView"/>
 </ImageClassifyGrid>
+
+
+@code
+{
+        ImageResultView resultView;
+        ImageTrainView trainView;
+        protected override void OnAfterRender(bool firstRender)
+        {
+            if(firstRender)
+                trainView.TrainingDone += () => resultView.Refresh();
+        }
+
+}
+
 
 
 <style>

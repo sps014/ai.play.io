@@ -49,7 +49,7 @@
                 }
                 else
                 {
-                    <div class="alert alert-danger" role="alert">
+                    <div class="alert alert-warning" role="alert">
                         @if (ImageClassView.Classes.Count <= 1)
                         {
                             <p>Add Atleast 2 Classes To Train Model</p>
@@ -87,10 +87,10 @@
 @code
 {
     bool IsModelLoaded = false;
-    int imageAddedCount = 0;
+    static int imageAddedCount = 0;
     bool IsImageAddedBegin = false;
     bool trainingBegin = false;
-    double loss = 0;
+    static double loss = 0;
     public static bool OnceTrained = false;
 
     ElementReference img;
@@ -147,15 +147,23 @@
         {
             trainingBegin = false;
             OnceTrained = true;
+            TrainingDone?.Invoke();
         }
         else
         {
-            this.loss = double.Parse(loss);
+            ImageTrainView.loss = double.Parse(loss);
         }
-        Console.WriteLine(loss);
+        //Console.WriteLine(loss);
         StateHasChanged();
         await Task.Delay(1);
     }
+    public void Refresh()
+    {
+        StateHasChanged();
+    }
+
+    public delegate void TrainingDoneHandler();
+    public event TrainingDoneHandler TrainingDone;
     int imagesCount => ImageClassView.Classes.Select(x => x.Images.Count).Sum();
 }
 

@@ -15,11 +15,20 @@
       }
       <br />
       <br />
+      @if (ImageTrainView.OnceTrained)
+      {
+          <span class="btn btn-primary btn-file">
+              Predict      <InputFile OnChange="OnInputFileChange" />
 
-      <span class="btn btn-primary btn-file">
-          Predict      <InputFile OnChange="OnInputFileChange" />
+          </span>
+      }
+      else
+      {
+          <div class="alert alert-warning">
+              Please complete Train step before making classification decisions.
+          </div>
+      }
 
-      </span>
 
   </div>
   <div class="card-footer text-muted">
@@ -57,6 +66,10 @@
         if (res == null)
             return;
         maxLabel = res.label;
+        StateHasChanged();
+    }
+    public void Refresh()
+    {
         StateHasChanged();
     }
 

@@ -11,10 +11,14 @@
       </div>
       @if (imageToClassify != null)
       {
-          <img src="@imageToClassify" @ref="imageRef" />
+          <img src="@imageToClassify" @ref="imageRef" style="width:100%" />
       }
-      <button class="btn btn-primary" @onclick="Classify">Predict</button>
-      <InputFile OnChange="OnInputFileChange" />
+      <br />
+  <span class="btn btn-primary btn-file">
+      Predict      <InputFile OnChange="OnInputFileChange" />
+
+  </span>
+
   </div>
   <div class="card-footer text-muted">
     @maxLabel
@@ -68,6 +72,9 @@
         }
 
         StateHasChanged();
+
+        if (imageToClassify != null)
+            await Classify();
     }
 
     public class ClassResult
@@ -77,3 +84,25 @@
     }
 }
 
+<style>
+    .btn-file {
+        position: relative;
+        overflow: hidden;
+    }
+
+        .btn-file input[type=file] {
+            position: absolute;
+            top: 0;
+            right: 0;
+            min-width: 100%;
+            min-height: 100%;
+            font-size: 100px;
+            text-align: right;
+            filter: alpha(opacity=0);
+            opacity: 0;
+            outline: none;
+            background: white;
+            cursor: inherit;
+            display: block;
+        }
+</style>

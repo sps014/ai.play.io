@@ -5,7 +5,7 @@
             <h5>Train</h5>
         </div>
         <div class="card-body">
-            <h5 class="card-title">@imagesCount Images</h5>
+            <h7 class="card-title">Total @imagesCount Images To Train On.</h7>
             <p class="card-text">
                 <br />
             </p>
@@ -15,7 +15,7 @@
                     <span class="spinner-border spinner-border-sm"
                           aria-hidden="true"
                           role="status"></span>
-                    Loading Model...
+                    Fetching Model...
                 </button>
             }
             else
@@ -35,7 +35,7 @@
                 {
                     if (IsImageAddedBegin)
                     {
-                        <button class="btn btn-warning">Adding @imageAddedCount Images in Model</button>
+                        <button class="btn btn-warning">Processed @imageAddedCount Images</button>
                     }
                     else if (trainingBegin)
                     {
@@ -45,6 +45,7 @@
                     {
                         <button class="btn btn-primary" @onclick="async() => { await Train();}">Train</button>
                     }
+                    
                 }
                 else
                 {
@@ -62,7 +63,15 @@
             }
         </div>
         <div class="card-footer text-muted">
-            2 days ago
+            @if(OnceTrained)
+            {
+            <div class="alert alert-success">
+                Trained On : @imageAddedCount Images Successfully.
+                <br />
+                Loss Reached To : @loss
+            </div>
+            }
+
         </div>
     </div>
 </div>
@@ -82,9 +91,11 @@
     bool IsImageAddedBegin = false;
     bool trainingBegin = false;
     double loss = 0;
+    public static bool OnceTrained = false;
 
     ElementReference img;
     DotNetObjectReference<ImageTrainView> reference;
+
 
     protected override void OnInitialized()
     {
@@ -135,6 +146,7 @@
         if(string.IsNullOrWhiteSpace(loss))
         {
             trainingBegin = false;
+            OnceTrained = true;
         }
         else
         {

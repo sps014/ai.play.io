@@ -73,7 +73,7 @@
     }
     async Task OnInputFileChange(InputFileChangeEventArgs e)
     {
-        var imageFiles = e.GetMultipleFiles();
+        var imageFiles = e.GetMultipleFiles(1024);
 
         var format = "image/png";
         foreach (var imageFile in imageFiles)

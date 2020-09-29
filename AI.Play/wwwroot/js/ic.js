@@ -14,7 +14,6 @@ function ReloadModel(Dotnet,numClasses = 2) {
     featureExtractor = model.classification();
 }
 function AddImage(imageElementRef, label) {
-    console.log(label);
     featureExtractor.addImage(imageElementRef, label);
 }
 

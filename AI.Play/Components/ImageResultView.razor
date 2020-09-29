@@ -41,8 +41,10 @@
               foreach (var (ind,item) in results.Select((itm, ind) => (ind,itm)))
               {
           <li class="list-group-item text-left">
-              <p style="position:relative;margin-left:5px">@item.label</p>
-              <div class="progress" style="height: 30px;position: relative;margin-left: 25px;margin-top:-43px">
+              <p style="position:relative;margin-left:-10px">
+                  <a data-placement="left" data-toggle="tooltip" title="@item.label">@(GetLabel(item.label))</a>
+              </p>
+              <div class="progress" style="height: 30px;position: relative;margin-left: 55px;margin-top:-43px">
                   <div class="progress-bar bg-@GetColor(ind)"
                        role="progressbar"
                        style="width: @(item.confidence*100)%;"
@@ -77,6 +79,18 @@
         await Runtime.InvokeVoidAsync("Classify", DotNetObject, imageRef);
     }
     [JSInvokable("ICClassify")]
+
+    string GetLabel(string label)
+    {
+        if(label.Length>6)
+        {
+            return label.Substring(0, 6) + "...";
+        }
+        else
+        {
+            return label;
+        }
+    }
     public void ICClassify(ClassResult[] results)
     {
         if (results == null)

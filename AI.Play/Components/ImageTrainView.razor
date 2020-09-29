@@ -48,7 +48,7 @@
                     }
                     else if (trainingBegin)
                     {
-                        <button class="btn btn-success">Training ( Loss @loss)</button>
+                        <button class="btn btn-success">Training ( Loss @(loss.ToString("0.000000")))</button>
                     }
                     else
                     {
@@ -77,7 +77,7 @@
             <div class="alert alert-success">
                 Trained On : @imageAddedCount Images Successfully.
                 <br />
-                Loss Reached To : @loss
+                Loss Reached To : @(loss.ToString("0.000000"))
             </div>
             }
 
@@ -126,6 +126,7 @@
             waitforLoad = true;
             return;
         }
+        OnceTrained = false;
 
         //Add images to NN
         IsImageAddedBegin = true;
@@ -136,7 +137,6 @@
             foreach (var img in cls.Images)
             {
                 imageAddedCount++;
-                Console.WriteLine("Added");
                 await AddImage(img.Reference, cls.ClassName);
                 StateHasChanged();
                 await Task.Delay(1);

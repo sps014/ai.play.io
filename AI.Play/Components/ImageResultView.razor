@@ -51,7 +51,7 @@
                        aria-valuenow="@(item.confidence*100)%;"
                        aria-valuemin="0"
                        aria-valuemax="100">
-                      @((int)(item.confidence*100))%
+                      @((item.confidence*100).ToString("0.0000"))%
                   </div>
               </div>
           </li>
@@ -78,7 +78,7 @@
     {
         await Runtime.InvokeVoidAsync("Classify", DotNetObject, imageRef);
     }
-    [JSInvokable("ICClassify")]
+
 
     string GetLabel(string label)
     {
@@ -91,17 +91,13 @@
             return label;
         }
     }
+    [JSInvokable("ICClassify")]
     public void ICClassify(ClassResult[] results)
     {
         if (results == null)
             return;
 
-        foreach (var item in results)
-        {
-            Console.WriteLine(item.label + "   ->   " + item.confidence);
-        }
         this.results = results.OrderByDescending(x => x.confidence).ToArray();
-
         StateHasChanged();
     }
     public void Refresh()

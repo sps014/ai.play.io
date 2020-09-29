@@ -1,15 +1,20 @@
 ﻿let featureExtractor;
-
+let model;
 function CreateFeatureExtractor(Dotnet) {
     console.clear();
-    featureExtractor = ml5.featureExtractor('MobileNet', ModelLoaded.bind(Dotnet));
-    featureExtractor = featureExtractor.classification();
+    model = ml5.featureExtractor('MobileNet', ModelLoaded.bind(Dotnet));
+    featureExtractor = model.classification();
 }
 
 function ModelLoaded() {
     this.invokeMethodAsync("ICModelLoad");
 }
+function ReloadModel(Dotnet,numClasses = 2) {
+    model = ml5.featureExtractor('MobileNet', { numLabels: numClasses }, ModelLoaded.bind(Dotnet));
+    featureExtractor = model.classification();
+}
 function AddImage(imageElementRef, label) {
+    console.log(label);
     featureExtractor.addImage(imageElementRef, label);
 }
 

@@ -101,10 +101,9 @@
     bool trainingBegin = false;
     static double loss = 0;
     public static bool OnceTrained = false;
-
     ElementReference img;
     DotNetObjectReference<ImageTrainView> reference;
-
+    bool waitforLoad = false;
 
     protected override void OnInitialized()
     {
@@ -121,7 +120,14 @@
     }
     async Task Train(bool report = true)
     {
-        //Add images to NN 
+        if(!waitforLoad)
+        {
+            await ReloadModel();
+            waitforLoad = true;
+            return;
+        }
+
+        //Add images to NN
         IsImageAddedBegin = true;
         StateHasChanged();
         await Task.Delay(1);
@@ -130,6 +136,7 @@
             foreach (var img in cls.Images)
             {
                 imageAddedCount++;
+                Console.WriteLine("Added");
                 await AddImage(img.Reference, cls.ClassName);
                 StateHasChanged();
                 await Task.Delay(1);
@@ -141,10 +148,22 @@
         await Runtime.InvokeVoidAsync("Train", reference, report);
     }
 
+    async Task ReloadModel()
+    {
+        await Runtime.InvokeVoidAsync("ReloadModel",reference, ImageClassView.Classes.Count);
+    }
+
     [JSInvokable("ICModelLoad")]
-    public void ModelLoaded()
+    public async void ModelLoaded()
     {
         IsModelLoaded = true;
+
+        if(waitforLoad)
+        {
+            await Train();
+            waitforLoad = false;
+        }
+
         StateHasChanged();
     }
     [JSInvokable("ICTrain")]

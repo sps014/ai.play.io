@@ -1,30 +1,6 @@
 ﻿@page "/"
 @inject IJSRuntime Runtime
 
-<br/>
-<ImageClassifyGrid>
-    <ImageClassView @ref="classView"/>
-    <ImageTrainView @ref="trainView"/>
-    <ImageResultView @ref="resultView"/>
-</ImageClassifyGrid>
-
-
-@code
-{
-    ImageResultView resultView;
-    ImageTrainView trainView;
-    ImageClassView classView;
-    protected override void OnAfterRender(bool firstRender)
-    {
-        if (firstRender)
-        {
-            trainView.TrainingDone += () => resultView.Refresh();
-            classView.AddedDeletedCall += () => trainView.Refresh();
-        }
-    }
-
-}
-
 
 
 <style>

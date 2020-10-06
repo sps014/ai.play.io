@@ -4,12 +4,13 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.JSInterop;
 using Microsoft.AspNetCore.Components;
+using Microsoft.AspNetCore.Components.Forms;
 
 namespace AI.Play.Components
 {
     public partial class ClassModifyView
     {
-        int ColCount = 4;
+        readonly int ColCount = 4;
         [Parameter]
         public string Index { get; set; }
         int i => int.Parse(Index);

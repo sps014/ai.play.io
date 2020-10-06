@@ -29,3 +29,6 @@ function Classify(Dotnet, input) {
 function OnClassify(err, results) {
     this.invokeMethodAsync("ICClassify", results);
 }
+ function Save() {
+    featureExtractor.save();
+}

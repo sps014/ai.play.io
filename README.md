@@ -3,6 +3,12 @@
 A Web App To train different Classes of Images , performance is optimized by WebGL.Rapidly train on image dataset and iterate faster.
 Privacy first Website. (No data is collected from user), All tasks are performed on client side with power of Web Assembly.
 
+<br>
+
+#### Demo 👇👇👇👇 
+https://aiplay.netlify.app/
+
+<br>
 
 #### Video 👇👇👇👇 
 

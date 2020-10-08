@@ -1,6 +1,6 @@
 # AI.Play
 
-
+Faster training than Teachable Machine in some cases.
 
 
 #### Video 👇👇👇👇 

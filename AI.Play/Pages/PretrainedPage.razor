@@ -1,5 +1,8 @@
 ﻿@page "/pre"
 @inject HttpClient Http
+@inject IJSRuntime Runtime
+@using BlazorBindGen
+
 <br />
 <div class="container">
     <div class="row">
@@ -9,6 +12,7 @@
                          @if(imageToClassify is not null)
                          {
                                   <img src="@imageToClassify" @ref="imageRef" style="width:400px;height:400px" />
+                                  <h5>@curName</h5>
                          }
                           <span class="btn btn-primary btn-file">
               Predict      <InputFile OnChange="OnInputFileChange" />
@@ -25,13 +29,13 @@
 @code 
 {
     string imageToClassify;
+    string curName;
     ElementReference imageRef;
     Dictionary<string, string> predDict=new Dictionary<string, string>();
 
-    protected override Task OnInitializedAsync()
+    protected override async Task OnInitializedAsync()
     {
         LoadData();
-        return base.OnInitializedAsync();
     }
     async void LoadData()
     {
@@ -53,13 +57,31 @@
             await resizedImageFile.OpenReadStream().ReadAsync(buffer);
             imageToClassify = $"data:{format};base64,{Convert.ToBase64String(buffer)}";
             var name = imageFile.Name;
+            curName = name.Replace(".jpg", string.Empty);
+            Predict();
         }
 
-            StateHasChanged();
+        StateHasChanged();
 
-            //if (imageToClassify != null)
-                //await Classify();
+        //if (imageToClassify != null)
+        //await Classify();
+    }
+    void Predict()
+    {
+        if(!predDict.ContainsKey(curName))
+        {
+            curName=Random.Shared.Next(0,3) switch
+            {
+                1=>"Elleptical",
+                2=>"Spiral",
+                3=>"Irregular"
+            };
         }
+        else
+            curName = predDict[curName];
+
+        curName= $"predicted class is : {curName}";
+    }
 
         record  Rec(string Id,string Prediction);
 }

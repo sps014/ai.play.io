@@ -11,12 +11,12 @@ namespace AI.Play.Components
     {
         [Parameter]
         public static List<ImageClassContainer> Classes { get; set; } = new List<ImageClassContainer>()
-  {
-    new ImageClassContainer(){ ClassName="Spiral"},
-    new ImageClassContainer(){ClassName="Elleptical"},
-        new ImageClassContainer(){ ClassName="Irregular"},
+        {
+            new ImageClassContainer(){ ClassName="Spiral"},
+            new ImageClassContainer(){ClassName="Elleptical"},
+            new ImageClassContainer(){ ClassName="Irregular"},
 
-  };
+        };
         static int ClassNameCount = 0;
         void AddNewClass()
         {
